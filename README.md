@@ -2,41 +2,65 @@
 
 A minimal, deterministic Markdown-to-LaTeX/PDF renderer. It keeps report content in Markdown and owns presentation locally through one reusable Jinja2 LaTeX template.
 
-## Setup
+## Install
 
 Requirements:
 
 - Python 3.10+
 - `latexmk` and a working LaTeX distribution for PDF output
 
-For a command that remains available globally, install with `pipx`:
+On macOS with Homebrew:
+
+```bash
+brew install python
+brew install --cask mactex-no-gui
+```
+
+Clone and install:
 
 ```bash
 git clone https://github.com/marcos-narvaez/document-renderer.git
 cd document-renderer
-pipx install --editable .
+./install.sh
 ```
 
-To update later:
+The installer creates an isolated virtual environment and exposes
+`document-renderer` through `~/.local/bin`.
+
+To update:
 
 ```bash
 cd document-renderer
 git pull
+./install.sh
 ```
 
-For development, install the package in a virtual environment:
+Verify:
 
 ```bash
-cd document-renderer
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install -e .
+document-renderer examples/sample_report.md
+```
+
+The generated PDF will be written beside `examples/sample_report.md`.
+
+### Claude Code
+
+Add this stable pointer to `~/.claude/CLAUDE.md`, replacing the path with the
+actual clone location:
+
+```markdown
+## Local Infrastructure Tools
+
+Before using or describing local infrastructure tools, read:
+`/absolute/path/to/document-renderer/CLAUDE_TOOLS.md`
+
+Follow the tool-specific instructions there instead of duplicating them here.
 ```
 
 ## Usage
 
 ```bash
-python -m document_renderer examples/sample_report.md
+document-renderer examples/sample_report.md
 ```
 
 By default, a successful build retains only the PDF:
@@ -91,7 +115,7 @@ v1.
 
 Place example LaTeX reports in `reference/`. They are inputs for future template refinement only. The renderer should borrow general visual choices—margins, typography, spacing, title treatment, headers, footers, and tables—without copying report content or hardcoding a single document.
 
-The v0 template reflects the preferred conventions in the Historian, Rush Chair, and Okavango references:
+The v1 template reflects the preferred conventions in the Historian, Rush Chair, and Okavango references:
 
 - Letter paper with approximately one-inch margins
 - 11pt Latin-style serif body typography
@@ -99,10 +123,6 @@ The v0 template reflects the preferred conventions in the Historian, Rush Chair,
 - Rush/Historian-style bold article headings and readable list spacing
 - Minimal chrome with page number only
 - Booktabs tables and compact page numbering
-
-## Future scope
-
-Complex or irregular Markdown normalization may later use a local Qwen3 model before the deterministic rendering stage. That is explicitly post-v0; this version makes no AI calls and remains fully deterministic.
 
 ## Architecture
 
