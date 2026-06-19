@@ -64,12 +64,13 @@ Add this stable pointer to `~/.claude/CLAUDE.md`, replacing the path with the
 actual clone location:
 
 ```markdown
-## Local Infrastructure Tools
+## Formal PDF Reports
 
-Before using or describing local infrastructure tools, read:
+When asked to create or render a formal PDF report, read:
 `/absolute/path/to/document-renderer/CLAUDE_TOOLS.md`
 
-Follow the tool-specific instructions there instead of duplicating them here.
+Follow those instructions for that report. Do not apply them to unrelated
+writing, coding, or local-tool workflows.
 ```
 
 ## Usage
