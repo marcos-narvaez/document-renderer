@@ -39,6 +39,27 @@ class CliTexRetentionTests(unittest.TestCase):
             *extra,
         ]
 
+    def default_arguments(self, *extra: str) -> list[str]:
+        return [
+            str(self.source),
+            "--template",
+            str(self.template),
+            *extra,
+        ]
+
+    @patch("document_renderer.cli.compile_latex")
+    def test_default_output_is_beside_markdown(self, compile_latex) -> None:
+        def compile_beside_source(path: Path) -> Path:
+            pdf_path = path.with_suffix(".pdf")
+            pdf_path.write_bytes(b"%PDF-test")
+            return pdf_path
+
+        compile_latex.side_effect = compile_beside_source
+
+        self.assertEqual(main(self.default_arguments()), 0)
+        self.assertTrue((self.root / "report.pdf").exists())
+        self.assertFalse((self.root / "report.tex").exists())
+
     @patch("document_renderer.cli.compile_latex")
     def test_success_removes_tex_by_default(self, compile_latex) -> None:
         compile_latex.side_effect = lambda path: path.with_suffix(".pdf")

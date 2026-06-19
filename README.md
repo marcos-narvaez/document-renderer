@@ -42,8 +42,10 @@ python -m document_renderer examples/sample_report.md
 By default, a successful build retains only the PDF:
 
 ```text
-output/sample_report.pdf
+examples/sample_report.pdf
 ```
+
+The PDF is written beside the source Markdown file. Use `-o` only to override that location.
 
 Keep the intermediate LaTeX when needed:
 

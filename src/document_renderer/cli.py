@@ -26,7 +26,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--output-dir",
         type=Path,
         default=None,
-        help="Output directory (default: project output/)",
+        help="Output directory (default: directory containing the Markdown file)",
     )
     parser.add_argument(
         "--template",
@@ -46,7 +46,6 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     input_path = args.input.resolve()
-    output_dir_was_explicit = args.output_dir is not None
 
     if not input_path.is_file():
         print(f"error: input file not found: {input_path}", file=sys.stderr)
@@ -55,12 +54,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"error: template not found: {args.template}", file=sys.stderr)
         return 2
 
-    output_dir = (args.output_dir or project_root() / "output").expanduser().resolve()
-    if not output_dir_was_explicit:
-        print(
-            f"Using default output directory because -o was not supplied: {output_dir}",
-            file=sys.stderr,
-        )
+    output_dir = (args.output_dir or input_path.parent).expanduser().resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     tex_path = output_dir / f"{input_path.stem}.tex"
 
