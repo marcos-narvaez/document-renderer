@@ -58,7 +58,7 @@ document-renderer examples/sample_report.md
 
 The generated PDF will be written beside `examples/sample_report.md`.
 
-### Claude Code
+### Claude Code and Codex
 
 Add this stable pointer to `~/.claude/CLAUDE.md`, replacing the path with the
 actual clone location:
@@ -67,9 +67,21 @@ actual clone location:
 ## Formal PDF Reports
 
 When asked to create or render a formal PDF report, read:
-`/absolute/path/to/document-renderer/CLAUDE_TOOLS.md`
+`/absolute/path/to/document-renderer/TOOLING.md`
 
 Follow those instructions for that report. Do not apply them to unrelated
+writing, coding, or local-tool workflows.
+```
+
+Add the same scoped pointer to `~/.codex/AGENTS.md`:
+
+```markdown
+## Formal PDF Reports
+
+When asked to create or render a formal PDF report, read:
+`/absolute/path/to/document-renderer/TOOLING.md`
+
+Apply those instructions only to that report. Do not apply them to unrelated
 writing, coding, or local-tool workflows.
 ```
 

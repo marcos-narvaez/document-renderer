@@ -32,4 +32,4 @@ if ! printf '%s' ":$PATH:" | grep -q ":$BIN_DIR:"; then
   echo "Add this line to your shell profile, then restart the terminal:"
   echo "export PATH=\"$BIN_DIR:\$PATH\""
 fi
-echo "Claude instructions: $ROOT/CLAUDE_TOOLS.md"
+echo "Claude/Codex instructions: $ROOT/TOOLING.md"
