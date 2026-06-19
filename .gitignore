@@ -3,8 +3,5 @@ __pycache__/
 *.egg-info/
 .DS_Store
 
-output/*
-!output/.gitkeep
-
 reference/*
 !reference/.gitkeep
