@@ -7,11 +7,15 @@ BIN_DIR="$HOME/.local/bin"
 
 if ! command -v python3 >/dev/null 2>&1; then
   echo "error: Python 3 is required." >&2
+  echo "Check with: python3 --version" >&2
+  echo "Install on macOS with Homebrew: brew install python" >&2
   exit 1
 fi
 
 if ! command -v latexmk >/dev/null 2>&1; then
-  echo "error: latexmk is required. Install a TeX distribution, then rerun this script." >&2
+  echo "error: latexmk is required." >&2
+  echo "Check with: latexmk --version" >&2
+  echo "Install on macOS with Homebrew: brew install --cask mactex-no-gui" >&2
   exit 1
 fi
 

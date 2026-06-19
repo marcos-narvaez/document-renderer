@@ -8,15 +8,30 @@ Requirements:
 
 - Python 3.10+
 - `latexmk` and a working LaTeX distribution for PDF output
+- Git
 
-On macOS with Homebrew:
+First, check what is already installed:
 
 ```bash
-brew install python
-brew install --cask mactex-no-gui
+python3 --version
+latexmk --version
+git --version
 ```
 
-Clone and install:
+Only install missing prerequisites. On macOS with Homebrew:
+
+```bash
+# Only if python3 is missing or older than 3.10:
+brew install python
+
+# Only if latexmk is missing:
+brew install --cask mactex-no-gui
+
+# Only if git is missing:
+brew install git
+```
+
+Then clone and install:
 
 ```bash
 git clone https://github.com/marcos-narvaez/document-renderer.git
