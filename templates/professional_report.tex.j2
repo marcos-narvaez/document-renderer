@@ -1,0 +1,62 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\usepackage{hyperref}
+
+\definecolor{ink}{HTML}{171717}
+\definecolor{muted}{HTML}{444444}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ink,
+  urlcolor=muted,
+  pdftitle={<< title >>}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+\setlist{leftmargin=1.6em, itemsep=0.35em, topsep=0.45em}
+\renewcommand{\arraystretch}{1.12}
+
+\titleformat{\section}
+  {\Large\bfseries\color{ink}}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\large\bfseries\color{ink}}
+  {\thesubsection}{0.8em}{}
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\color{ink}}
+  {\thesubsubsection}{0.7em}{}
+\titlespacing*{\section}{0pt}{1.7em}{0.6em}
+\titlespacing*{\subsection}{0pt}{1.25em}{0.4em}
+\titlespacing*{\subsubsection}{0pt}{1em}{0.3em}
+
+\pagestyle{plain}
+
+\begin{document}
+\color{ink}
+
+\thispagestyle{plain}
+\begin{center}
+  \vspace*{0.25em}
+  {\LARGE << title >>\par}
+  \vspace{1.4em}
+  {\large\color{ink}\today\par}
+  \vspace{1.1em}
+\end{center}
+
+<< body >>
+
+\end{document}
