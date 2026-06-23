@@ -16,7 +16,25 @@ class BlockRenderingTests(unittest.TestCase):
 
         self.assertIn(r"\includegraphics", rendered)
         self.assertIn(r"\detokenize{/tmp/plate one.jpg}", rendered)
-        self.assertIn(r"\caption{Plate I — Cover}", rendered)
+        self.assertIn(r"\caption{Plate I --- Cover}", rendered)
+
+    def test_renders_common_unicode_safely(self) -> None:
+        rendered = render_block(
+            Block(
+                kind="paragraph",
+                content="− → ≈ ≥ ≤ × ÷ ² ³ · — – … • ° “quoted” á é í ó ú ñ ü",
+            )
+        )
+
+        self.assertIn(r"$\rightarrow$", rendered)
+        self.assertIn(r"$\approx$", rendered)
+        self.assertIn(r"$\geq$", rendered)
+        self.assertIn(r"$\leq$", rendered)
+        self.assertIn(r"$\times$", rendered)
+        self.assertIn(r"$\div$", rendered)
+        self.assertIn(r"\ldots{}", rendered)
+        self.assertIn(r"\textbullet{}", rendered)
+        self.assertIn("á é í ó ú ñ ü", rendered)
 
     def test_renders_blockquote(self) -> None:
         rendered = render_block(

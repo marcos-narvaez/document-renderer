@@ -24,6 +24,11 @@ Workflow:
 Behavior:
 
 - A successful build keeps the PDF and deletes the intermediate `.tex`.
+- Compilation uses XeLaTeX through `latexmk`, giving reports native Unicode
+  support.
+- Common report Unicode, including math-like symbols, arrows, curly quotes,
+  dashes, bullets, ellipses, degrees, superscripts, and accented Latin letters,
+  is supported. Do not pre-sanitize ordinary Unicode before rendering.
 - Use `--keep-tex` only when LaTeX source is explicitly needed.
 - Use `--no-compile` only when `.tex` output without a PDF is explicitly needed.
 - Use `-o` only when a different output directory is explicitly requested.

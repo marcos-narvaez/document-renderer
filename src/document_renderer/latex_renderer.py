@@ -23,6 +23,31 @@ LATEX_REPLACEMENTS = {
     "^": r"\textasciicircum{}",
 }
 
+UNICODE_LATEX_REPLACEMENTS = {
+    "−": "-",
+    "→": r"$\rightarrow$",
+    "←": r"$\leftarrow$",
+    "↔": r"$\leftrightarrow$",
+    "⇒": r"$\Rightarrow$",
+    "≈": r"$\approx$",
+    "≥": r"$\geq$",
+    "≤": r"$\leq$",
+    "×": r"$\times$",
+    "÷": r"$\div$",
+    "·": r"$\cdot$",
+    "²": r"$^{2}$",
+    "³": r"$^{3}$",
+    "°": r"$^\circ$",
+    "•": r"\textbullet{}",
+    "…": r"\ldots{}",
+    "“": "``",
+    "”": "''",
+    "‘": "`",
+    "’": "'",
+    "–": "--",
+    "—": "---",
+}
+
 
 def escape_latex(value: str) -> str:
     return "".join(LATEX_REPLACEMENTS.get(char, char) for char in value)
@@ -35,6 +60,11 @@ def render_inline(value: str) -> str:
     def stash(latex: str) -> str:
         placeholders.append(latex)
         return f"\x00{len(placeholders) - 1}\x00"
+
+    value = "".join(
+        stash(replacement) if (replacement := UNICODE_LATEX_REPLACEMENTS.get(char)) else char
+        for char in value
+    )
 
     value = re.sub(
         r"`([^`\n]+)`",
