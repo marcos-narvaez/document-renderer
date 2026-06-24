@@ -117,7 +117,7 @@ Choose another output directory or template:
 python -m document_renderer report.md -o build --template templates/professional_report.tex.j2
 ```
 
-If compilation fails or `latexmk` is unavailable, the renderer retains the `.tex` file for debugging and exits with a clear message.
+If compilation fails or `latexmk` is unavailable, the renderer retains the `.tex` file for debugging, removes LaTeX auxiliary files, and exits with a clear message.
 
 ## Supported Markdown
 

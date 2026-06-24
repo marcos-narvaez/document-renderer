@@ -15,6 +15,24 @@ class LatexCompilationError(RuntimeError):
     pass
 
 
+LATEX_AUXILIARY_SUFFIXES = (
+    ".aux",
+    ".bcf",
+    ".bbl",
+    ".blg",
+    ".fdb_latexmk",
+    ".fls",
+    ".lof",
+    ".log",
+    ".lot",
+    ".out",
+    ".run.xml",
+    ".synctex.gz",
+    ".toc",
+    ".xdv",
+)
+
+
 def _decode_process_output(value: bytes | str | None) -> str:
     if value is None:
         return ""
@@ -68,6 +86,17 @@ def _run_command(command: list[str], cwd: Path) -> subprocess.CompletedProcess[b
     )
 
 
+def _cleanup_latex_auxiliaries(tex_path: Path) -> None:
+    for suffix in LATEX_AUXILIARY_SUFFIXES:
+        auxiliary_path = tex_path.with_name(f"{tex_path.stem}{suffix}")
+        try:
+            auxiliary_path.unlink()
+        except FileNotFoundError:
+            pass
+        except OSError:
+            pass
+
+
 def compile_latex(tex_path: Path) -> Path:
     tex_path = tex_path.resolve()
     latexmk = shutil.which("latexmk")
@@ -92,7 +121,9 @@ def compile_latex(tex_path: Path) -> Path:
         diagnostic = _extract_latex_diagnostic(tex_path)
         if diagnostic:
             log_tail = diagnostic + "\n\n" + log_tail
+        _cleanup_latex_auxiliaries(tex_path)
         raise LatexCompilationError(f"LaTeX compilation failed:\n{log_tail}")
 
     _run_command([latexmk, "-c", "-outdir=.", tex_path.name], tex_path.parent)
+    _cleanup_latex_auxiliaries(tex_path)
     return tex_path.with_suffix(".pdf")

@@ -34,6 +34,8 @@ class CompilerRegressionTests(unittest.TestCase):
             self.assertEqual(main([str(markdown_path)]), 0)
             self.assertTrue(markdown_path.with_suffix(".pdf").is_file())
             self.assertFalse(markdown_path.with_suffix(".tex").exists())
+            for suffix in (".aux", ".fdb_latexmk", ".fls", ".log", ".out", ".xdv"):
+                self.assertFalse(markdown_path.with_suffix(suffix).exists())
 
     @patch("document_renderer.compiler.shutil.which", return_value="/usr/bin/latexmk")
     @patch("document_renderer.compiler.subprocess.run")
@@ -54,6 +56,9 @@ class CompilerRegressionTests(unittest.TestCase):
 
             with self.assertRaises(LatexCompilationError) as context:
                 compile_latex(tex_path)
+
+            self.assertTrue(tex_path.exists())
+            self.assertFalse(tex_path.with_suffix(".log").exists())
 
         message = str(context.exception)
         self.assertIn("LaTeX compilation failed", message)

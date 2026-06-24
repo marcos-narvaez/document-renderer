@@ -32,7 +32,9 @@ Behavior:
 - Use `--keep-tex` only when LaTeX source is explicitly needed.
 - Use `--no-compile` only when `.tex` output without a PDF is explicitly needed.
 - Use `-o` only when a different output directory is explicitly requested.
-- If compilation fails, the renderer retains the `.tex` file for debugging.
+- If compilation fails, the renderer retains the `.tex` file for debugging but
+  still removes LaTeX auxiliary files such as `.aux`, `.log`, `.out`, `.fls`,
+  and `.fdb_latexmk`.
 - Quote paths because filenames may contain spaces, apostrophes, or em dashes.
 
 Do not generate raw LaTeX unless explicitly requested or the renderer cannot
